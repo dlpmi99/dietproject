@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>식단 생성페이지</title>
+    <style>
+        /* 배경 및 전체 스타일 설정 */
+        body {
+            background-color: #C6FAB9;
+            font-family: Arial, sans-serif; /* 글꼴 설정 */
+            margin: 0; /* 기본 마진 제거 */
+            padding: 20px; /* 전체 여백 */
+        }
+        /* 메뉴 바 스타일 */
+        .header {
+            display: flex; /* Flexbox로 정렬 */
+            align-items: center; /* 수직 중앙 정렬 */
+            margin-bottom: 20px; /* 아래 여백 추가 */
+        }
+        .logo {
+            margin-right: 20px; /* 로고와 메뉴 간 간격 */
+        }
+        .page {
+            list-style-type: none; /* 기본 리스트 스타일 제거 */
+		    padding: 0; /* 패딩 제거 */
+		    display: flex; /* Flexbox로 가로 배열 */
+		    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+		    background-color: white;
+		    border-radius: 10px;
+		    height: 50px; /* 높이 조정 */
+		    align-items: center; /* 수직 중앙 정렬 */
+		    position: relative; /* 위치 속성 설정 */
+		    width: 100%; /* 가로 길이를 100%로 설정 */
+		    max-width: 900px; /* 최대 너비 설정 (필요에 따라 조정) */
+		        }
+        .page li {
+            margin-right: 80px; /* 항목 간 간격 */
+            position: relative; /* 위치 속성 설정 */
+        }
+        .page li:first-child {
+            margin-left: 90px; /* 첫번쨰 항목의 오른쪽 여백 설정 */
+        }
+        .page a {
+            color: black; /* 글자 색상 */
+            text-decoration: none; /* 밑줄 제거 */
+            padding: 15px 20px; /* 패딩 추가 (상하 좌우) */
+            display: block; /* 블록으로 설정하여 전체 영역 클릭 가능 */
+            height: 100%; /* 부모 높이에 맞추기 */
+            transition: background-color 0.3s, box-shadow 0.3s; /* 호버 효과 전환 */
+            border-radius: 5px; /* 모서리 둥글게 */
+            position: relative; /* 위치 속성 설정 */
+            overflow: hidden; /* 자식 요소가 넘칠 경우 숨김 */
+        }
+        .page a::before {
+            content: ""; /* 가상 요소 */
+            position: absolute; /* 절대 위치 설정 */
+            top: 0; left: 0; right: 0; bottom: 0; /* 부모 크기 맞춤 */
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 80%, rgba(200, 200, 200, 1) 100%); /* 그라데이션 배경 */
+            opacity: 0; /* 초기 투명도 */
+            transition: opacity 0.3s; /* 투명도 전환 */
+            border-radius: 5px; /* 모서리 둥글게 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+        }
+        .page a:hover::before {
+            opacity: 1; /* 호버 시 투명도 증가 */
+        }
+         /* 이미지 컨테이너 스타일 */
+        .img-container {
+            text-align: center; /* 중앙 정렬 */
+            margin-top: 20px; /* 상단 여백 */
+            border: 2px solid #A6CDD9; /* 네모 칸 테두리 */
+            background-color: #CDF9EA;
+            padding: 10px; /* 네모 칸 안쪽 여백 */
+            border-radius: 5px; /* 모서리 둥글게 */
+            max-width: 400px; /* 최대 너비 설정 */
+            width: 100%; /* 너비 100% */
+            margin: 0 auto; /* 가운데 정렬 */
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .explain {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+        /* 사용자 정보 컨테이너 스타일 */
+        .user-container {
+            text-align: center; /* 중앙 정렬 */
+            margin-top: 20px; /* 상단 여백 */
+            border: 2px solid #FFD88E; /* 네모 칸 테두리 */
+            background-color: #FBFFCB;
+            padding: 10px; /* 네모 칸 안쪽 여백 */
+            border-radius: 5px; /* 모서리 둥글게 */
+            max-width: 400px; /* 최대 너비 설정 */
+            width: 100%; /* 너비 100% */
+            margin: 0 auto; /* 가운데 정렬 */
+             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+        }
+        .user-box {
+            text-align: left; /* 왼쪽 정렬 */
+            margin-top: 20px; /* 상단 여백 */
+            border: 2px solid #FFD88E; /* 네모 칸 테두리 */
+            background-color: white;
+            padding: 10px; /* 네모 칸 안쪽 여백 */
+            border-radius: 5px; /* 모서리 둥글게 */
+            max-width: 350px; /* 최대 너비 설정 */
+            width: 100%; /* 너비 100% */
+            margin: 0 auto; /* 가운데 정렬 */
+        }
+         /* 결과 정보 컨테이너 스타일 */
+        .result-container {
+		    text-align: center; /* 중앙 정렬 */
+		    margin-top: 20px; /* 상단 여백 */
+		    border: 2px solid #FFD88E; /* 네모 칸 테두리 */
+		    background-color: #FBFFCB;
+		    padding: 10px; /* 네모 칸 안쪽 여백 */
+		    border-radius: 5px; /* 모서리 둥글게 */
+		    max-width: 900px; /* 최대 너비 설정 (필요에 따라 조정) */
+		    width: 100%; /* 너비 100% */
+		    margin: 0 auto; /* 가운데 정렬 */
+		    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+		}
+
+		.result-box {
+		    text-align: left; /* 왼쪽 정렬 */
+		    margin-top: 20px; /* 상단 여백 */
+		    border: 2px solid #FFD88E; /* 네모 칸 테두리 */
+		    background-color: white;
+		    padding: 10px; /* 네모 칸 안쪽 여백 */
+		    border-radius: 5px; /* 모서리 둥글게 */
+		    max-width: 850px; /* 최대 너비 설정 (필요에 따라 조정) */
+		    width: 100%; /* 너비 100% */
+		    margin: 0 auto; /* 가운데 정렬 */
+		}
+        .input-group {
+            display: flex; /* 수평 정렬 */
+            align-items: center; /* 수직 중앙 정렬 */
+            margin-bottom: 10px; /* 아래 여백 추가 */
+        }
+        label {
+            width: 120px; /* 레이블 너비 설정 */
+        }
+        input[type="text"] {
+            flex: 1; /* 가변 너비 설정 */
+            padding: 10px; /* 내부 여백 */
+            border: 1px solid #ccc; /* 테두리 */
+            border-radius: 4px; /* 모서리 둥글게 */
+        }
+        .button-container {
+            display: flex; /* Flexbox로 정렬 */
+            justify-content: center; /* 중앙 정렬 */
+            margin-top: 20px; /* 상단 여백 */
+        }
+        input[type="button"] {
+            padding: 10px 20px; /* 버튼 내부 여백 */
+            border-color: #FFCF54; /* 테두리 색상 */
+            background-color: #F8FFD0; /* 버튼 배경 색상 */
+            color: black; /* 글자 색상 */
+            border-radius: 30px; /* 모서리 둥글게 */
+            cursor: pointer; /* 커서 모양 변경 */
+        }
+        input[type="button"]:hover {
+            background-color: #FFCF54; /* 호버 시 배경 색상 변경 */
+        }
+        .healthbtn-container {
+		    display: flex; /* Flexbox로 정렬 */
+		    justify-content: center; /* 수평 중앙 정렬 */
+		    margin-top: 20px; /* 상단 여백 */
+		}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="image/img1.png" alt="로고" width="100"> <!-- 로고 이미지 경로 설정 -->
+        </div>
+        <ul class="page">
+            <li><a href="/">홈</a></li>
+            <li><a href="user">식단 생성</a></li>
+            <li><a href="health">건강 정보</a></li>
+            <li><a>고객지원</a></li>
+        </ul>
+    </div>
+    <div class="user-container">
+        <h3>개인정보</h3>
+        <div class="user-box">
+            <form action="/user" method="post">
+                <div class="input-group">
+                    <label for="age">나이</label>
+                    <input type="text" name="age" id="age">
+                </div>
+                <div class="input-group">
+                    <label for="height">신장(cm)</label>
+                    <input type="text" name="height" id="height">
+                </div>
+                <div class="input-group">
+                    <label for="weight">체중(kg)</label>
+                    <input type="text" name="weight" id="weight">
+                </div>
+                <div class="input-group">
+                    <label for="blood">혈당</label>
+                    <input type="text" name="bloodsuger" id="bloodsuger">
+                </div>
+                <div class="input-group">
+                    <label for="cholesterol">총 콜레스테롤</label>
+                    <input type="text" name="cholesterol" id="cholesterol">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="button-container">
+    	<a href="result">
+        <input type="button" value="식단 생성">
+        </a>
+    </div>
+</body>
+</html>
