@@ -30,5 +30,11 @@ public class HomeController {
 	public String result() {
 		return "result";
 	}
+	
+	@GetMapping("/hello")
+	public String result() {
+		return "hello";
+	}
+	
 
 }
