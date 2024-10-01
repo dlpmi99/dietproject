@@ -230,33 +230,15 @@
         <tbody>
             <tr>
                 <td>조식</td>
-                <td>아침 식단1</td>
-                <td>아침 식단2</td>
-                <td>아침 식단3</td>
-                <td>아침 식단4</td>
-                <td>아침 식단5</td>
-                <td>아침 식단6</td>
-                <td>아침 식단7</td>
-            </tr>
+            <td th:each="l1 : ${list1}" th:utext="${l1.rice} + '<br/>' + ${l1.soup} + '<br/>' + ${l1.side1} + '<br/>' + ${l1.side2} + '<br/>' + ${l1.side3}"></td>
+            </tr> 
             <tr>
-                <td>중식</td>
-                <td>점심 식단1</td>
-                <td>점심 식단2</td>
-                <td>점심 식단3</td>
-                <td>점심 식단4</td>
-                <td>점심 식단5</td>
-                <td>점심 식단6</td>
-                <td>점심 식단7</td>
+          	   <td>중식</td>
+               <td th:each="l2 : ${list2}" th:utext="${l2.rice} + '<br/>' + ${l2.soup} + '<br/>' + ${l2.side1} + '<br/>' + ${l2.side2} + '<br/>' + ${l2.side3}"></td>
             </tr>
             <tr>
                 <td>석식</td>
-                <td>저녁 식단1</td>
-                <td>저녁 식단2</td>
-                <td>저녁 식단3</td>
-                <td>저녁 식단4</td>
-                <td>저녁 식단5</td>
-                <td>저녁 식단6</td>
-                <td>저녁 식단7</td>
+                <td th:each="l3 : ${list3}" th:utext="${l3.rice} + '<br/>' + ${l3.soup} + '<br/>' + ${l3.side1} + '<br/>' + ${l3.side2} + '<br/>' + ${l3.side3}"></td>
             </tr>
         </tbody>
         </div>

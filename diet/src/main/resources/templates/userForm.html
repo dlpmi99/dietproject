@@ -164,6 +164,17 @@
         input[type="button"]:hover {
             background-color: #FFCF54; /* 호버 시 배경 색상 변경 */
         }
+        input[type="submit"]{
+            padding: 10px 20px; /* 버튼 내부 여백 */
+            border-color: #FFCF54; /* 테두리 색상 */
+            background-color: #F8FFD0; /* 버튼 배경 색상 */
+            color: black; /* 글자 색상 */
+            border-radius: 30px; /* 모서리 둥글게 */
+            cursor: pointer; /* 커서 모양 변경 */
+        }
+         input[type="submit"]:hover {
+            background-color: #FFCF54; /* 호버 시 배경 색상 변경 */
+        }
         .healthbtn-container {
 		    display: flex; /* Flexbox로 정렬 */
 		    justify-content: center; /* 수평 중앙 정렬 */
@@ -229,19 +240,18 @@
                 </div>
                 <div class="input-group">
                     <label for="blood">혈당</label>
-                    <input type="text" name="bloodsuger" id="bloodsuger">
+                    <input type="text" name="blood" id="blood">
                 </div>
                 <div class="input-group">
                     <label for="cholesterol">총 콜레스테롤</label>
                     <input type="text" name="cholesterol" id="cholesterol">
                 </div>
+                <div class="button-container">
+		        <input type="submit" value="식단 생성" >
+		    </div>
             </form>
         </div>
     </div>
-    <div class="button-container">
-    	<a href="result">
-        <input type="button" value="식단 생성">
-        </a>
-    </div>
+    
 </body>
 </html>
