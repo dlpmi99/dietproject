@@ -4,46 +4,58 @@
 <meta charset="UTF-8">
 <title>식단 생성페이지</title>
 <script>
-function check(){
-    // 입력 필드 가져오기
-    var age = document.getElementById('age').value.trim();
-    var height = document.getElementById('height').value.trim();
-    var weight = document.getElementById('weight').value.trim();
-    var blood = document.getElementById('blood').value.trim();
-    var cholesterol = document.getElementById('cholesterol').value.trim();
-    
-    // 나이, 신장, 체중, 혈당, 콜레스테롤 필드가 숫자인지 확인하는 정규식
-    var numberPattern = /^[0-9]+(\.[0-9]+)?$/;
-    
-    if(!numberPattern.test(age)){
-        alert('나이를 입력해주세요.');
-        return false;
+    // 유효성 검사를 위한 함수 정의
+    function check() {
+        // 각 입력 필드를 변수로 가져오기
+        var age = document.getElementById("age").value;
+        var height = document.getElementById("height").value;
+        var weight = document.getElementById("weight").value;
+        var blood = document.getElementById("blood").value;
+        var cholesterol = document.getElementById("cholesterol").value;
+
+        // 나이 필드에 숫자가 아닌 값이 입력된 경우 경고 메시지 표시
+        if (isNaN(age) || age === "") {
+            alert("나이를 입력하세요.");
+            document.getElementById("age").focus();
+            return false;
+        }
+
+        // 신장 필드에 숫자가 아닌 값이 입력된 경우 경고 메시지 표시
+        if (isNaN(height) || height === "") {
+            alert("신장을 입력하세요.");
+            document.getElementById("height").focus();
+            return false;
+        }
+
+        // 체중 필드에 숫자가 아닌 값이 입력된 경우 경고 메시지 표시
+        if (isNaN(weight) || weight === "") {
+            alert("체중을 입력하세요.");
+            document.getElementById("weight").focus();
+            return false;
+        }
+
+        // 혈당 필드에 숫자가 아닌 값이 입력된 경우 경고 메시지 표시
+        if (isNaN(blood) || blood === "") {
+            alert("혈당을 입력하세요.");
+            document.getElementById("blood").focus();
+            return false;
+        }
+
+        // 콜레스테롤 필드에 숫자가 아닌 값이 입력된 경우 경고 메시지 표시
+        if (isNaN(cholesterol) || cholesterol === "") {
+            alert("총 콜레스테롤을 입력하세요.");
+            document.getElementById("cholesterol").focus();
+            return false;
+        }
+
+        // 모든 필드가 숫자로 입력되었으면 폼 제출 허용
+        return true;
     }
-    if(!numberPattern.test(height)){
-        alert('신장을 입력해주세요.');
-        return false;
-    }
-    if(!numberPattern.test(weight)){
-        alert('체중을 입력해주세요.');
-        return false;
-    }
-    if(!numberPattern.test(blood)){
-        alert('혈당을 입력해주세요.');
-        return false;
-    }
-    if(!numberPattern.test(cholesterol)){
-        alert('총 콜레스테롤을 입력해주세요.');
-        return false;
-    }
-    
-    // 모든 검증을 통과하면 폼 제출 허용
-    return true;
-}
 </script>
-   <style>
+<style>
         /* 배경 및 전체 스타일 설정 */
         body {
-            background-color: #C6FAB9;
+            background-color: #D6EFD5;
             font-family: Arial, sans-serif; /* 글꼴 설정 */
             margin: 0; /* 기본 마진 제거 */
             padding: 20px; /* 전체 여백 */
@@ -62,7 +74,7 @@ function check(){
 		    padding: 0; /* 패딩 제거 */
 		    display: flex; /* Flexbox로 가로 배열 */
 		    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
-		    background-color: white;
+		    background-color: #F2F7E1;
 		    border-radius: 10px;
 		    height: 50px; /* 높이 조정 */
 		    align-items: center; /* 수직 중앙 정렬 */
@@ -105,11 +117,8 @@ function check(){
         .img-container {
             text-align: center; /* 중앙 정렬 */
             margin-top: 20px; /* 상단 여백 */
-            border: 2px solid #A6CDD9; /* 네모 칸 테두리 */
-            background-color: #CDF9EA;
-            padding: 10px; /* 네모 칸 안쪽 여백 */
             border-radius: 5px; /* 모서리 둥글게 */
-            max-width: 400px; /* 최대 너비 설정 */
+            max-width: 1000px; /* 최대 너비 설정 */
             width: 100%; /* 너비 100% */
             margin: 0 auto; /* 가운데 정렬 */
         }
@@ -201,6 +210,42 @@ function check(){
         input[type="button"]:hover {
             background-color: #FFCF54; /* 호버 시 배경 색상 변경 */
         }
+        input[type="submit"] {
+            padding: 10px 20px; /* 버튼 내부 여백 */
+            border-color: #FFCF54; /* 테두리 색상 */
+            background-color: #F8FFD0; /* 버튼 배경 색상 */
+            color: black; /* 글자 색상 */
+            border-radius: 30px; /* 모서리 둥글게 */
+            cursor: pointer; /* 커서 모양 변경 */
+        }
+        input[type="submit"]:hover {
+            background-color: #FFCF54; /* 호버 시 배경 색상 변경 */
+        }
+         button[type="button"] {
+            padding: 10px 20px; /* 버튼 내부 여백 */
+            border-color: #FFCF54; /* 테두리 색상 */
+            background-color: #F8FFD0; /* 버튼 배경 색상 */
+            color: black; /* 글자 색상 */
+            border-radius: 30px; /* 모서리 둥글게 */
+            cursor: pointer; /* 커서 모양 변경 */
+        }
+        button[type="button"]:hover {
+            background-color: #FFCF54; /* 호버 시 배경 색상 변경 */
+        }
+         button[type="submit"]:hover {
+            background-color: #FFCF54; /* 호버 시 배경 색상 변경 */
+        }
+        button[type="submit"] {
+            padding: 10px 20px; /* 버튼 내부 여백 */
+            border-color: #FFCF54; /* 테두리 색상 */
+            background-color: #F8FFD0; /* 버튼 배경 색상 */
+            color: black; /* 글자 색상 */
+            border-radius: 30px; /* 모서리 둥글게 */
+            cursor: pointer; /* 커서 모양 변경 */
+        }
+        button[type="submit"] :hover {
+            background-color: #FFCF54; /* 호버 시 배경 색상 변경 */
+        }
         .healthbtn-container {
 		    display: flex; /* Flexbox로 정렬 */
 		    justify-content: center; /* 수평 중앙 정렬 */
@@ -234,6 +279,63 @@ function check(){
 	.diet-table tr:nth-child(even) {
 	    background-color: #FFF9E6; /* 홀수 행과 구분되는 배경색 */
 	}
+	 .form-container {
+	 		text-align: center; /* 중앙 정렬 */
+            background-color: #F9F9D6;
+            padding: 20px;
+            width: 50%;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        input[type="text"], textarea, input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 150px;
+        }
+        .submit-btn {
+            padding: 10px 20px;
+            background-color: #79CEA5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #66B38C;
+        }
+          .table-container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #F9F9D6;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        th {
+            background-color: #F7F7C6;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #F7F7F7;
+        }
 	
 	/* 모바일 반응형 디자인을 위한 미디어 쿼리 */
 	@media (max-width: 600px) {
@@ -250,13 +352,16 @@ function check(){
             <img src="image/img1.png" alt="로고" width="100"> <!-- 로고 이미지 경로 설정 -->
         </div>
         <ul class="page">
-            <li><a href="/">홈</a></li>
-            <li><a href="user">식단 생성</a></li>
-            <li><a href="health">건강 정보</a></li>
-            <li><a>고객지원</a></li>
+            <li><a href="/">HOME</a></li>
+            <li><a href="user">DIET</a></li>
+            <li><a href="health">HEALTH</a></li>
+            <li><a href="supportboard">SUPPORT</a></li>
         </ul>
     </div>
     <div class="user-container">
+
+	    
+        
         <h3>개인정보</h3>
         <div class="user-box">
             <form action="/user" method="post" onsubmit="return check();">

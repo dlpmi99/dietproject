@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>건강 정보 페이지</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${support.spTitle}">게시물 상세보기</title>
+</head>
 <style>
         /* 배경 및 전체 스타일 설정 */
         body {
@@ -296,41 +298,47 @@
     }
 }
     </style>
-</head>
 <body>
-    <div class="header">
-        <div class="logo">
-            <img src="image/img1.png" alt="로고" width="100"> <!-- 로고 이미지 경로 설정 -->
+	<div class="header">
+	        <div class="logo">
+	            <img src="/image/img1.png" alt="로고" width="100"> <!-- 로고 이미지 경로 설정 -->
+	        </div>
+	        <ul class="page">
+	            <li><a href="/">HOME</a></li>
+	            <li><a href="/user">DIET</a></li>
+	            <li><a href="/health">HEALTH</a></li>
+	            <li><a href="/supportboard">SUPPORT</a></li>
+	        </ul>
+	    </div>
+	<div class="form-container">  
+    <h2>게시물 상세</h2>
+    
+    <form th:action="@{/supportboard/update/{supportNo}(supportNo=${support.supportNo})}" method="post">
+        <input type="hidden" th:value="${support.supportNo}" name="supportNo" />
+        
+        <!-- 제목 수정 -->
+        <label for="spTitle">제목:</label>
+        <input type="text" id="spTitle" name="spTitle" th:value="${support.spTitle}" required />
+        <br><br>
+        
+        <!-- 작성자 수정 -->
+        <label for="spName">작성자:</label>
+        <input type="text" id="spName" name="spName" th:value="${support.spName}" required />
+        <br><br>
+        
+        <!-- 게시물 내용 수정 -->
+        <label for="spContents">내용:</label>
+        <textarea id="spContents" name="spContents" rows="10" cols="50" required
+                  th:text="${support.spContents}"></textarea>
+        <br><br>
+        
+        <!-- 수정 버튼 -->
+        <div class="button-container">
+        	<button type="submit">수정하기</button>
         </div>
-        <ul class="page">
-            <li><a href="/">HOME</a></li>
-            <li><a href="user">DIET</a></li>
-            <li><a href="health">HEALTH</a></li>
-            <li><a href="supportboard">SUPPORT</a></li>
-        </ul>
-    </div>
-
-    <div class="healthbtn-container">
-        <div th:if="${msg != null}">
-            <p th:text="${msg}"></p> <!-- 플래시 메시지 출력 -->
-        </div>
-        <button type="button" onclick="printHealth()">건강 정보 버튼</button>
-    </div>
-
-    <script th:inline="javascript">
-        function printHealth() {
-            // Thymeleaf 세션에서 가져온 값이 null이면 'null'이 문자열로 전달되므로, JavaScript에서 null로 다시 처리
-            var blood = [[${session.blood != null ? session.blood : 'null'}]]; // 'null'이라는 문자열을 실제 null로 처리
-            
-            console.log(blood);
-            // blood 값이 null인지 확인
-            if (blood === 'null' | blood ===0.0 ) {
-                alert("건강 정보를 먼저 입력하세요.");
-                window.location.href = "/user"; // 사용자 정보 입력 페이지로 리다이렉트
-            } else {
-                window.location.href = "/printhealth"; // 건강 정보를 보여주는 페이지로 이동
-            }
-        }
-    </script>
+    </form>
+	</div>  
+    <!-- 뒤로가기 버튼 -->
+    <a href="/supportboard">목록으로 돌아가기</a>
 </body>
 </html>
