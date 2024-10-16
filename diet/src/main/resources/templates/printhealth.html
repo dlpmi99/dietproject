@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>건강 정보 페이지</title>
+<title>Insert title here</title>
 <style>
         /* 배경 및 전체 스타일 설정 */
         body {
@@ -284,7 +284,7 @@
     </style>
 </head>
 <body>
-    <div class="header">
+	<div class="header">
         <div class="logo">
             <img src="image/img1.png" alt="로고" width="100"> <!-- 로고 이미지 경로 설정 -->
         </div>
@@ -295,28 +295,19 @@
             <li><a href="supportboard">SUPPORT</a></li>
         </ul>
     </div>
-
-    <div class="healthbtn-container">
-        <div th:if="${msg != null}">
-            <p th:text="${msg}"></p> <!-- 플래시 메시지 출력 -->
+    <div class="result-container">
+        
+        <div class="result-box">
+           	
+        <tfoot>
+        <tr>
+        <td colspan="8">
+        	 <strong class="info-title" th:text="${title}"></strong><br><br/>
+            <span class="info-content" th:utext="${info}"></span>
+        </td>
+        </tr>
+        </tfoot>
         </div>
-        <button type="button" onclick="printHealth()">건강 정보 버튼</button>
     </div>
-
-    <script th:inline="javascript">
-        function printHealth() {
-            // Thymeleaf 세션에서 가져온 값이 null이면 'null'이 문자열로 전달되므로, JavaScript에서 null로 다시 처리
-            var blood = [[${session.blood != null ? session.blood : 'null'}]]; // 'null'이라는 문자열을 실제 null로 처리
-            
-            console.log(blood);
-            // blood 값이 null인지 확인
-            if (blood === 'null' | blood ===0.0 ) {
-                alert("건강 정보를 먼저 입력하세요.");
-                window.location.href = "/user"; // 사용자 정보 입력 페이지로 리다이렉트
-            } else {
-                window.location.href = "/printhealth"; // 건강 정보를 보여주는 페이지로 이동
-            }
-        }
-    </script>
 </body>
 </html>
